@@ -9,4 +9,4 @@ void displayTextFileInPane3(const std::string& filePath, WINDOW* pane3);
 void clearContentsOfPane3(WINDOW* pane3);
 void print_sub_dir_contents (int height, int width, int pane_width, WINDOW *pane2, WINDOW *pane3, int selected_index, std::string& current_file);
 
-#endif // PANE3_H
+#endif

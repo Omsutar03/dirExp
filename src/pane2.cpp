@@ -51,7 +51,7 @@ std::string get_selected_filename(int selected_index) {
 
         line_number++;
     }
-    return "";  // Default return if index is out of range
+    return "";
 }
 
 
@@ -83,7 +83,7 @@ void print_dir_contents (int height, int width, int pane_width, WINDOW *pane2, W
             uintmax_t filesize = fs::file_size(entry);
             std::string formatted_size = format_size(filesize);
 
-            mvwprintw(pane2, line_number, 1, "%-40s %-10s", filename.c_str(), formatted_size.c_str()); // Print name and size
+            mvwprintw(pane2, line_number, 1, "%-40s %-10s", filename.c_str(), formatted_size.c_str());
         } else if (fs::is_directory(entry)) {
             // If it's a directory, just mark it as "<DIR>"
             mvwprintw(pane2, line_number, 1, "%-40s <DIR>", filename.c_str());
@@ -111,8 +111,6 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
         std::string selected_filename = get_selected_filename(selected_index);
         fs::path sub_path = fs::current_path() / selected_filename;
         fs::path parent_path = fs::current_path().parent_path();
-        mvwprintw(pane2, 15, 1, "%d", ch);
-        wrefresh(pane2);
     
         switch (ch) {
             case 259: // Windows UP
@@ -122,11 +120,11 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     selected_index--;
                 }
                 // Clear the pane and print the directory contents with updated selection
-                werase(pane2);  // Clear the window
-                box(pane2, 0, 0);  // Redraw the border
+                werase(pane2);
+                box(pane2, 0, 0);
                 mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
-                print_dir_contents(height, width, startx, pane2, pane3, selected_index);  // Print contents with selection
-                wrefresh(pane2);  // Refresh the window to display the changes
+                print_dir_contents(height, width, startx, pane2, pane3, selected_index);
+                wrefresh(pane2);
                 break;
             case 258: // Windows Down
             case 456: // Linux Down
@@ -135,11 +133,11 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     selected_index++;
                 }
                 // Clear the pane and print the directory contents with updated selection
-                werase(pane2);  // Clear the window
-                box(pane2, 0, 0);  // Redraw the border
+                werase(pane2);
+                box(pane2, 0, 0);
                 mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
-                print_dir_contents(height, width, startx, pane2, pane3, selected_index);  // Print contents with selection
-                wrefresh(pane2);  // Refresh the window to display the changes
+                print_dir_contents(height, width, startx, pane2, pane3, selected_index);
+                wrefresh(pane2);
                 break;
             case 8:
                 selected_index = 1;
@@ -151,7 +149,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
 
                     // Updating path in pane1
                     wclear(pane1);
-                    box(pane1, 0, 0); // Draw border
+                    box(pane1, 0, 0);
                     mvwprintw(pane1, 0, 1, "< Pane 1: Current Directory path >");
                     mvwprintw(pane1, 1, 1, fs::current_path().string().c_str());
                     std::string footer_hint = "UP/DOWN - Navigate, ENTER - Open, BACKSPACE - Back, q - Quit";
@@ -160,13 +158,13 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     wrefresh(pane1);
 
                     // After changing the directory, refresh the file list in the pane
-                    werase(pane2);  // Clear the window
-                    box(pane2, 0, 0);  // Redraw the border
+                    werase(pane2);
+                    box(pane2, 0, 0);
                     mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
 
                     // Reprint the directory contents with the updated directory
                     print_dir_contents(height, width, startx, pane2, pane3, selected_index);
-                    wrefresh(pane2);  // Refresh the window to display the changes
+                    wrefresh(pane2);
                 }
                 break;
             case 10:
@@ -187,13 +185,13 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     
 
                     // After changing the directory, refresh the file list in the pane
-                    werase(pane2);  // Clear the window
-                    box(pane2, 0, 0);  // Redraw the border
+                    werase(pane2);
+                    box(pane2, 0, 0);
                     mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
 
                     // Reprint the directory contents with the updated directory
                     print_dir_contents(height, width, startx, pane2, pane3, selected_index);
-                    wrefresh(pane2);  // Refresh the window to display the changes
+                    wrefresh(pane2);
                 }
                 break;
         }

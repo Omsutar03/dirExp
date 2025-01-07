@@ -9,7 +9,7 @@ namespace fs = std::filesystem;
 
 WINDOW* createPane3(int height, int width, int starty, int startx) {
     WINDOW* pane3 = newwin(height, width, starty, startx);
-    box(pane3, 0, 0); // Draw border
+    box(pane3, 0, 0);
     mvwprintw(pane3, 0, 1, "< Pane 3: Preview of file or content of sub dir >");
     wrefresh(pane3);
     return pane3;
@@ -40,8 +40,8 @@ void displayTextFileInPane3(const std::string& filePath, WINDOW* pane3) {
     int max_y, max_x;
     getmaxyx(pane3, max_y, max_x); // Get pane dimensions
 
-    int row = 3; // Start printing from row 1 (row 0 is the title)
-    int col = 1; // Start printing from column 1
+    int row = 3;
+    int col = 1;
 
     // Print content line by line
     std::istringstream contentStream(content);
@@ -89,14 +89,14 @@ void print_sub_dir_contents (int height, int width, int pane_width, WINDOW *pane
             uintmax_t filesize = fs::file_size(entry);
             std::string formatted_size = format_size(filesize);
 
-            mvwprintw(pane3, line_number, 1, "%-40s %-10s", filename.c_str(), formatted_size.c_str()); // Print name and size
+            mvwprintw(pane3, line_number, 1, "%-40s %-10s", filename.c_str(), formatted_size.c_str());
             
         } else if (fs::is_directory(entry)) {
             // If it's a directory, just mark it as "<DIR>"
             mvwprintw(pane3, line_number, 1, "%-40s <DIR>", filename.c_str());
             
         }
-        wrefresh(pane3); // Refresh pane3
+        wrefresh(pane3);
 
         line_number++;
 
