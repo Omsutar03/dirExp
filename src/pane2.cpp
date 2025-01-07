@@ -9,24 +9,19 @@ namespace fs = std::filesystem;
 
 // Function to check if a file is a text file based on its extension
 bool isTextFile(const std::string& filename) {
-    std::string extension = filename.substr(filename.find_last_of('.') + 1);
-    return (
-        extension == "txt" || extension == "md" || extension == "log" ||
-        extension == "cpp" || extension == "h" || extension == "cmake" ||
-        extension == "py" || extension == "html" || extension == "css" ||
-        extension == "js" || extension == "java" || extension == "rb" ||
-        extension == "php" || extension == "pl" || extension == "go" ||
-        extension == "ts" || extension == "swift" || extension == "rs" ||
-        extension == "lua" || extension == "sh" || extension == "bat" ||
-        extension == "ps1" || extension == "pl" || extension == "scala" ||
-        extension == "r" || extension == "sql" || extension == "json" ||
-        extension == "xml" || extension == "yaml" || extension == "yml" ||
-        extension == "ini" || extension == "conf" || extension == "toml" ||
-        extension == "mdx" || extension == "adoc" || extension == "rst" ||
-        extension == "tex" || extension == "srt" || extension == "vtt" ||
-        extension == "bib" || extension == "tsv" || extension == "ninja" ||
-        extension == "a"
-    );
+    static const std::vector<std::string> textExtensions = {
+        ".txt", ".md", ".log", ".cpp", ".h", ".cmake", ".py", ".html", 
+        ".css", ".js", ".java", ".rb", ".php", ".pl", ".go", ".ts", 
+        ".swift", ".rs", ".lua", ".sh", ".bat", ".ps1", ".scala", 
+        ".r", ".sql", ".json", ".xml", ".yaml", ".yml", ".ini", 
+        ".conf", ".toml", ".mdx", ".adoc", ".rst", ".tex", ".srt", 
+        ".vtt", ".bib", ".tsv", ".ninja", ".a"
+    };
+    
+    for (const auto& ext : textExtensions) {
+        if (filename.ends_with(ext)) return true;
+    }
+    return false;
 }
 
 // Function to format the file size into a more readable format
