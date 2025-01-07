@@ -114,10 +114,12 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
         std::string selected_filename = get_selected_filename(selected_index);
         fs::path sub_path = fs::current_path() / selected_filename;
         fs::path parent_path = fs::current_path().parent_path();
+        mvwprintw(pane2, 15, 1, "%d", ch);
+        wrefresh(pane2);
     
         switch (ch) {
-            case 119:
-            case 450:
+            case 259: // Windows UP
+            case 450: // Linux UP
                 // Move up the list
                 if (selected_index > 1) {
                     selected_index--;
@@ -129,8 +131,8 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                 print_dir_contents(height, width, startx, pane2, pane3, selected_index);  // Print contents with selection
                 wrefresh(pane2);  // Refresh the window to display the changes
                 break;
-            case 115:
-            case 456:
+            case 258: // Windows Down
+            case 456: // Linux Down
                 // Move down the list
                 if (selected_index < std::distance(fs::directory_iterator(fs::current_path()), fs::directory_iterator())) {
                     selected_index++;
