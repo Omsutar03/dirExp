@@ -11,6 +11,12 @@ WINDOW* createPane1(int height, int width, int starty, int startx) {
 
     fs::path currentPath = fs::current_path();
     mvwprintw(pane1, 1, 1, currentPath.string().c_str());
+
+    // Add footer with hints at the bottom of pane1
+    std::string footer_hint = "UP/DOWN - Navigate, ENTER - Open, BACKSPACE - Back, q - Quit";
+    int footer_y = height - 3;
+    mvwprintw(pane1, footer_y, 1, footer_hint.c_str());
+
     wrefresh(pane1);
     return pane1;
 }

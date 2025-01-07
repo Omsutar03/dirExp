@@ -65,7 +65,7 @@ void displayTextFileInPane3(const std::string& filePath, WINDOW* pane3) {
     wrefresh(pane3);
 }
 
-void clearContentsOfPane3(const std::string& filePath, WINDOW* pane3) {
+void clearContentsOfPane3(WINDOW* pane3) {
     // Clear the pane and redraw the border
     werase(pane3);
     box(pane3, 0, 0);

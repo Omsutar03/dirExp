@@ -4,11 +4,13 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include <vector>
 
 namespace fs = std::filesystem;
 
 // Function to check if a file is a text file based on its extension
 bool isTextFile(const std::string& filename) {
+    std::string extension = filename.substr(filename.find_last_of('.') + 1);
     static const std::vector<std::string> textExtensions = {
         ".txt", ".md", ".log", ".cpp", ".h", ".cmake", ".py", ".html", 
         ".css", ".js", ".java", ".rb", ".php", ".pl", ".go", ".ts", 
@@ -19,7 +21,7 @@ bool isTextFile(const std::string& filename) {
     };
     
     for (const auto& ext : textExtensions) {
-        if (filename.ends_with(ext)) return true;
+        if (extension == ext) return true;
     }
     return false;
 }
@@ -65,14 +67,14 @@ void print_dir_contents (int height, int width, int pane_width, WINDOW *pane2, W
             wattron(pane2, A_REVERSE); // Turn on reverse video mode (highlighting)
 
             if (isTextFile(filename)) {
-                clearContentsOfPane3(entry.path().string(), pane3);
+                clearContentsOfPane3(pane3);
                 displayTextFileInPane3(entry.path().string(), pane3);
                 
             } else if (fs::is_directory(entry)) {
-                clearContentsOfPane3(entry.path().string(), pane3);
+                clearContentsOfPane3(pane3);
                 print_sub_dir_contents (height, width, pane_width, pane2, pane3, selected_index, filename);
             } else {
-                clearContentsOfPane3(entry.path().string(), pane3);
+                clearContentsOfPane3(pane3);
             }
         }
         // Check if the entry is a regular file or a directory
@@ -152,6 +154,9 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     box(pane1, 0, 0); // Draw border
                     mvwprintw(pane1, 0, 1, "< Pane 1: Current Directory path >");
                     mvwprintw(pane1, 1, 1, fs::current_path().string().c_str());
+                    std::string footer_hint = "UP/DOWN - Navigate, ENTER - Open, BACKSPACE - Back, q - Quit";
+                    int footer_y = height - 3;
+                    mvwprintw(pane1, footer_y, 1, footer_hint.c_str());
                     wrefresh(pane1);
 
                     // After changing the directory, refresh the file list in the pane
@@ -174,6 +179,9 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     // Updating path in pane1
                     box(pane1, 0, 0); // Draw border
                     mvwprintw(pane1, 0, 1, "< Pane 1: Current Directory path >");
+                    std::string footer_hint = "UP/DOWN - Navigate, ENTER - Open, BACKSPACE - Back, q - Quit";
+                    int footer_y = height - 3;
+                    mvwprintw(pane1, footer_y, 1, footer_hint.c_str());
                     mvwprintw(pane1, 1, 1, fs::current_path().string().c_str());
                     wrefresh(pane1);
                     
