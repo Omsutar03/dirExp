@@ -122,7 +122,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                 // Clear the pane and print the directory contents with updated selection
                 werase(pane2);  // Clear the window
                 box(pane2, 0, 0);  // Redraw the border
-                mvwprintw(pane2, 0, 1, "[ Pane 2: Middle ]");
+                mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
                 print_dir_contents(height, width, startx, pane2, pane3, selected_index);  // Print contents with selection
                 wrefresh(pane2);  // Refresh the window to display the changes
                 break;
@@ -135,7 +135,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                 // Clear the pane and print the directory contents with updated selection
                 werase(pane2);  // Clear the window
                 box(pane2, 0, 0);  // Redraw the border
-                mvwprintw(pane2, 0, 1, "[ Pane 2: Middle ]");
+                mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
                 print_dir_contents(height, width, startx, pane2, pane3, selected_index);  // Print contents with selection
                 wrefresh(pane2);  // Refresh the window to display the changes
                 break;
@@ -150,14 +150,14 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     // Updating path in pane1
                     wclear(pane1);
                     box(pane1, 0, 0); // Draw border
-                    mvwprintw(pane1, 0, 1, "[ Pane 1: Left ]");
+                    mvwprintw(pane1, 0, 1, "< Pane 1: Current Directory path >");
                     mvwprintw(pane1, 1, 1, fs::current_path().string().c_str());
                     wrefresh(pane1);
 
                     // After changing the directory, refresh the file list in the pane
                     werase(pane2);  // Clear the window
                     box(pane2, 0, 0);  // Redraw the border
-                    mvwprintw(pane2, 0, 1, "[ Pane 2: Middle ]");
+                    mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
 
                     // Reprint the directory contents with the updated directory
                     print_dir_contents(height, width, startx, pane2, pane3, selected_index);
@@ -173,7 +173,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     
                     // Updating path in pane1
                     box(pane1, 0, 0); // Draw border
-                    mvwprintw(pane1, 0, 1, "[ Pane 1: Left ]");
+                    mvwprintw(pane1, 0, 1, "< Pane 1: Current Directory path >");
                     mvwprintw(pane1, 1, 1, fs::current_path().string().c_str());
                     wrefresh(pane1);
                     
@@ -181,7 +181,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
                     // After changing the directory, refresh the file list in the pane
                     werase(pane2);  // Clear the window
                     box(pane2, 0, 0);  // Redraw the border
-                    mvwprintw(pane2, 0, 1, "[ Pane 2: Middle ]");
+                    mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
 
                     // Reprint the directory contents with the updated directory
                     print_dir_contents(height, width, startx, pane2, pane3, selected_index);
@@ -195,7 +195,7 @@ void handle_navigation(int height, int width, int startx, WINDOW* pane1, WINDOW*
 WINDOW* createPane2(int height, int width, int starty, int startx, WINDOW* pane1, WINDOW* pane3) {
     WINDOW* pane2 = newwin(height, width, starty, startx);
     box(pane2, 0, 0);
-    mvwprintw(pane2, 0, 1, "[ Pane 2: Middle ]");
+    mvwprintw(pane2, 0, 1, "< Pane 2: Directory contents >");
     wrefresh(pane2);
 
     // Store the main directory application started in

@@ -10,7 +10,7 @@ namespace fs = std::filesystem;
 WINDOW* createPane3(int height, int width, int starty, int startx) {
     WINDOW* pane3 = newwin(height, width, starty, startx);
     box(pane3, 0, 0); // Draw border
-    mvwprintw(pane3, 0, 1, "[ Pane 3: Right ]");
+    mvwprintw(pane3, 0, 1, "< Pane 3: Preview of file or content of sub dir >");
     wrefresh(pane3);
     return pane3;
 }
@@ -20,7 +20,7 @@ void displayTextFileInPane3(const std::string& filePath, WINDOW* pane3) {
     // Clear the pane and redraw the border
     werase(pane3);
     box(pane3, 0, 0);
-    mvwprintw(pane3, 0, 1, "[ Pane 3: Right ]");
+    mvwprintw(pane3, 0, 1, "< Pane 3: Preview of file or content of sub dir >");
     wattron(pane3, A_REVERSE);
     mvwprintw(pane3, 1, 1, "<-- Preview of selected file -->");
     wattroff(pane3, A_REVERSE);
@@ -69,7 +69,7 @@ void clearContentsOfPane3(const std::string& filePath, WINDOW* pane3) {
     // Clear the pane and redraw the border
     werase(pane3);
     box(pane3, 0, 0);
-    mvwprintw(pane3, 0, 1, "[ Pane 3: Right ]");
+    mvwprintw(pane3, 0, 1, "< Pane 3: Preview of file or content of sub dir >");
     wrefresh(pane3);
 }
 
