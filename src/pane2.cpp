@@ -12,12 +12,12 @@ namespace fs = std::filesystem;
 bool isTextFile(const std::string& filename) {
     std::string extension = filename.substr(filename.find_last_of('.') + 1);
     static const std::vector<std::string> textExtensions = {
-        ".txt", ".md", ".log", ".cpp", ".h", ".cmake", ".py", ".html", 
-        ".css", ".js", ".java", ".rb", ".php", ".pl", ".go", ".ts", 
-        ".swift", ".rs", ".lua", ".sh", ".bat", ".ps1", ".scala", 
-        ".r", ".sql", ".json", ".xml", ".yaml", ".yml", ".ini", 
-        ".conf", ".toml", ".mdx", ".adoc", ".rst", ".tex", ".srt", 
-        ".vtt", ".bib", ".tsv", ".ninja", ".a"
+        "txt", "md", "log", "cpp", "h", "cmake", "py", "html", 
+        "css", "js", "java", "rb", "php", "pl", "go", "ts", 
+        "swift", "rs", "lua", "sh", "bat", "ps1", "scala", 
+        "r", "sql", "json", "xml", "yaml", "yml", "ini", 
+        "conf", "toml", "mdx", "adoc", "rst", "tex", "srt", 
+        "vtt", "bib", "tsv", "ninja", "a"
     };
     
     for (const auto& ext : textExtensions) {
